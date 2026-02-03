@@ -15,6 +15,22 @@ console.error("failed to fetch agents",err)
   }
   fetchAgents()
 },[])
+const [formData,setFormData]=useState({
+  scenarioName: "",
+    description: "",
+    scenarioType: "Single-Agent",
+    agentId: "",
+    expectedBehavior: "",
+    inputData: "{}",
+    tags: "",
+})
+const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   return (
     <div  className="p-4  min-h-screen">
@@ -43,6 +59,8 @@ console.error("failed to fetch agents",err)
           </label>
           <input
             type="text"
+            value={formData.scenarioName}
+            onChange={handleChange}
             placeholder="Customer refund handling"
             className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm
                        focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -55,6 +73,8 @@ console.error("failed to fetch agents",err)
             Description <span className="text-red-500">*</span>
           </label>
           <textarea
+          value={formData.description}
+            onChange={handleChange}
             rows="4"
             placeholder="Describe what this scenario tests"
             className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm
@@ -71,8 +91,12 @@ console.error("failed to fetch agents",err)
               Scenario Type
             </label>
             <select
+            name="scenarioType"
+              value={formData.scenarioType}
+              onChange={handleChange}
               className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm
                          focus:outline-none focus:ring-2 focus:ring-blue-500"
+                         
             >
               <option>Single-Agent</option>
               <option>Multi-Agent</option>
